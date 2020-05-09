@@ -36,6 +36,28 @@
 export default {
   props: {
     taskId: Number
+  },
+  data: function() {
+    return {
+      task: {}
+    }
+  },
+  methods: {
+    getTask() {
+      axious.get('/api/tasks/' + this.taskId)
+        .then((res) => {
+          this.task = res.data;
+        });
+    },
+    submit() {
+      axious.put('/api/tasks/' + this.taskId, this.task)
+        .then((res) => {
+          this.$router.push({name: 'task.list'})
+        });
+    }
+  },
+  mounted() {
+    this.getTask();
   }
 };
 </script>
