@@ -10,7 +10,7 @@
               class="col-sm-9 form-control-plaintext"
               readonly
               id="id"
-              v-bind:value="taskId"
+              v-model="task.id"
             />
           </div>
           <div class="form-group row border-bottom">
@@ -20,7 +20,7 @@
               class="col-sm-9 form-control-plaintext"
               readonly
               id="title"
-              value="title title"
+              v-model="task.title"
             />
           </div>
           <div class="form-group row border-bottom">
@@ -30,7 +30,7 @@
               class="col-sm-9 form-control-plaintext"
               readonly
               id="content"
-              value="content content"
+              v-model="task.content"
             />
           </div>
           <div class="form-group row border-bottom">
@@ -40,7 +40,7 @@
               class="col-sm-9 form-control-plaintext"
               readonly
               id="person-in-charge"
-              value="Ichiro"
+              v-model="task.person_in_charge"
             />
           </div>
         </form>
@@ -53,6 +53,22 @@
 export default {
   props: {
     taskId: String
+  },
+  data: function() {
+    return {
+      task: {}
+    }
+  },
+  methods: {
+    getTask() {
+      axios.get('/api/tasks/' + this.taskId)
+        .then((res) => {
+          this.task = res.data;
+        });
+    }
+  },
+  mounted() {
+    this.getTask();
   }
 };
 </script>

@@ -35,7 +35,7 @@
 <script>
 export default {
   props: {
-    taskId: String
+    taskId: Number
   }
 };
 </script>
